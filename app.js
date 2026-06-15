@@ -57,7 +57,7 @@ let vocabularyData = [
 let currentWordIndex = 0;
 
 // Функция для безопасной отправки запросов на сервер бота
-async def apiFetch(endpoint, options = {}) {
+async function apiFetch(endpoint, options = {}) {
     const headers = options.headers || {};
     
     // Передаем полную строку авторизационных данных Telegram в заголовке
