@@ -107,9 +107,14 @@ function changeLanguage(lang) {
         }
     });
     
-    // Изменяем язык озвучки Google TTS, если это требуется для перевода слов (описание перевода пойдет на выбранном языке)
     // Сохраняем язык в localStorage
     localStorage.setItem("korean_lang", lang);
+    
+    // Перерисовываем Хангыль с новым языком, если вкладка активна
+    const activeCatBtn = document.querySelector('.cat-btn.active');
+    if (activeCatBtn) {
+        renderHangul(activeCatBtn.dataset.cat);
+    }
 }
 
 // Ждем загрузки DOM, чтобы повесить селектор
@@ -130,35 +135,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Данные корейского алфавита (Хангыль)
+// Данные корейского алфавита (Хангыль) с локализацией
 const hangulData = {
     vowels: [
-        { char: '아', sound: 'а', rules: 'Буква А' },
-        { char: '야', sound: 'я', rules: 'Буква Я' },
-        { char: '어', sound: 'о', rules: 'Широкий О' },
-        { char: '여', sound: 'ё', rules: 'Широкий Ё' },
-        { char: '오', sound: 'о', rules: 'Закрытый О' },
-        { char: '요', sound: 'ё', rules: 'Закрытый Ё' },
-        { char: '우', sound: 'у', rules: 'Буква У' },
-        { char: '유', sound: 'ю', rules: 'Буква Ю' },
-        { char: '으', sound: 'ы', rules: 'Буква Ы' },
-        { char: '이', sound: 'и', rules: 'Буква И' },
-        { char: '애', sound: 'э', rules: 'Буква Э' },
-        { char: '에', sound: 'е', rules: 'Буква Е' }
+        { char: '아', sound: { ru: 'а', en: 'a', uz: 'a' }, rules: { ru: 'Буква А', en: 'Letter A', uz: 'A harfi' } },
+        { char: '야', sound: { ru: 'я', en: 'ya', uz: 'ya' }, rules: { ru: 'Буква Я', en: 'Letter Ya', uz: 'Ya harfi' } },
+        { char: '어', sound: { ru: 'о', en: 'eo', uz: 'o' }, rules: { ru: 'Широкий О', en: 'Broad O', uz: 'Keng O' } },
+        { char: '여', sound: { ru: 'ё', en: 'yeo', uz: 'yo' }, rules: { ru: 'Широкий Ё', en: 'Broad Yeo', uz: 'Keng Yo' } },
+        { char: '오', sound: { ru: 'о', en: 'o', uz: 'o' }, rules: { ru: 'Закрытый О', en: 'Closed O', uz: 'Yopiq O' } },
+        { char: '요', sound: { ru: 'ё', en: 'yo', uz: 'yo' }, rules: { ru: 'Закрытый Ё', en: 'Closed Yo', uz: 'Yopiq Yo' } },
+        { char: '우', sound: { ru: 'у', en: 'u', uz: 'u' }, rules: { ru: 'Буква У', en: 'Letter U', uz: 'U harfi' } },
+        { char: '유', sound: { ru: 'ю', en: 'yu', uz: 'yu' }, rules: { ru: 'Буква Ю', en: 'Letter Yu', uz: 'Yu harfi' } },
+        { char: '으', sound: { ru: 'ы', en: 'eu', uz: 'eu' }, rules: { ru: 'Буква Ы', en: 'Letter Eu', uz: 'Eu harfi' } },
+        { char: '이', sound: { ru: 'и', en: 'i', uz: 'i' }, rules: { ru: 'Буква И', en: 'Letter I', uz: 'I harfi' } },
+        { char: '애', sound: { ru: 'э', en: 'ae', uz: 'e' }, rules: { ru: 'Буква Э', en: 'Letter Ae', uz: 'E harfi' } },
+        { char: '에', sound: { ru: 'е', en: 'e', uz: 'e' }, rules: { ru: 'Буква Е', en: 'Letter E', uz: 'E harfi' } }
     ],
     consonants: [
-        { char: 'ㄱ', sound: 'к / г', rules: 'В начале "К", между гласными "Г"' },
-        { char: 'ㄴ', sound: 'н', rules: 'Звук Н' },
-        { char: 'ㄷ', sound: 'т / д', rules: 'В начале "Т", между гласными "Д"' },
-        { char: 'ㄹ', sound: 'р / ль', rules: 'В начале "Р", в конце слога "ЛЬ"' },
-        { char: 'ㅁ', sound: 'м', rules: 'Звук М' },
-        { char: 'ㅂ', sound: 'п / б', rules: 'В начале "П", между гласными "Б"' },
-        { char: 'ㅅ', sound: 'с / щ', rules: 'Перед "и, е, ё, ю, я" читается как "Щ"' },
-        { char: 'ㅇ', sound: 'нъ / -', rules: 'В начале не читается, в конце слога носовой "Н"' },
-        { char: 'ㅈ', sound: 'ч / дж', rules: 'В начале "Ч", между гласными "ДЖ"' },
-        { char: 'ㅊ', sound: 'чх', rules: 'Придыхательный Ч' },
-        { char: 'ㅋ', sound: 'кх', rules: 'Придыхательный К' },
-        { char: 'ㅌ', sound: 'тх', rules: 'Придыхательный Т' }
+        { char: 'ㄱ', sound: { ru: 'к / г', en: 'k / g', uz: 'k / g' }, rules: { ru: 'В начале "К", между гласными "Г"', en: 'Initially "K", between vowels "G"', uz: 'Boshida "K", unlilar orasida "G"' } },
+        { char: 'ㄴ', sound: { ru: 'н', en: 'n', uz: 'n' }, rules: { ru: 'Звук Н', en: 'Sound N', uz: 'N tovushi' } },
+        { char: 'ㄷ', sound: { ru: 'т / д', en: 't / d', uz: 't / d' }, rules: { ru: 'В начале "Т", между гласными "Д"', en: 'Initially "T", between vowels "D"', uz: 'Boshida "T", unlilar orasida "D"' } },
+        { char: 'ㄹ', sound: { ru: 'р / ль', en: 'r / l', uz: 'r / l' }, rules: { ru: 'В начале "Р", в конце слога "ЛЬ"', en: 'Initially "R", at the end of syllable "L"', uz: 'Boshida "R", bo\'g\'in oxirida "L"' } },
+        { char: 'ㅁ', sound: { ru: 'м', en: 'm', uz: 'm' }, rules: { ru: 'Звук М', en: 'Sound M', uz: 'M tovushi' } },
+        { char: 'ㅂ', sound: { ru: 'п / б', en: 'p / b', uz: 'p / b' }, rules: { ru: 'В начале "П", между гласными "Б"', en: 'Initially "P", between vowels "B"', uz: 'Boshida "P", unlilar orasida "B"' } },
+        { char: 'ㅅ', sound: { ru: 'с / щ', en: 's / sh', uz: 's / sh' }, rules: { ru: 'Перед "и, е, ё, ю, я" читается как "Щ"', en: 'Before "i, e, yeo, yu, ya" read as "SH"', uz: '"i, e, yo, yu, ya" oldidan "SH" o\'qiladi' } },
+        { char: 'ㅇ', sound: { ru: 'нъ / -', en: 'ng / -', uz: 'ng / -' }, rules: { ru: 'В начале не читается, в конце слога носовой "Н"', en: 'Initially silent, at the end nasal "NG"', uz: 'Boshida o\'qilmaydi, oxirida burun "NG"' } },
+        { char: 'ㅈ', sound: { ru: 'ч / дж', en: 'ch / j', uz: 'ch / j' }, rules: { ru: 'В начале "Ч", между гласными "ДЖ"', en: 'Initially "CH", between vowels "J"', uz: 'Boshida "CH", unlilar orasida "J"' } },
+        { char: 'ㅊ', sound: { ru: 'чх', en: 'ch', uz: 'ch' }, rules: { ru: 'Придыхательный Ч', en: 'Aspirated CH', uz: 'Nafasli CH' } },
+        { char: 'ㅋ', sound: { ru: 'кх', en: 'k', uz: 'k' }, rules: { ru: 'Придыхательный К', en: 'Aspirated K', uz: 'Nafasli K' } },
+        { char: 'ㅌ', sound: { ru: 'тх', en: 't', uz: 't' }, rules: { ru: 'Придыхательный Т', en: 'Aspirated T', uz: 'Nafasli T' } }
     ]
 };
 
@@ -255,8 +260,8 @@ function renderHangul(category) {
         card.className = 'hangul-card';
         card.innerHTML = `
             <div class="hangul-char">${item.char}</div>
-            <div class="hangul-sound">${item.sound}</div>
-            <div class="hangul-rules">${item.rules}</div>
+            <div class="hangul-sound">${item.sound[currentLang] || item.sound['ru']}</div>
+            <div class="hangul-rules">${item.rules[currentLang] || item.rules['ru']}</div>
         `;
         
         card.addEventListener('click', () => {
@@ -348,18 +353,21 @@ speakBtn.addEventListener('click', () => {
 });
 
 function speakKorean(text) {
-    try {
-        // Кодируем текст для передачи в URL
-        const query = encodeURIComponent(text);
-        // Используем официальный бесплатный API озвучки от Google Translate
-        const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=ko&client=tw-ob&q=${query}`;
-        
-        const audio = new Audio(ttsUrl);
-        audio.play().catch(err => {
-            console.warn("Ошибка автовоспроизведения аудио:", err);
-        });
-    } catch (err) {
-        console.error("Не удалось воспроизвести звук:", err);
+    if ('speechSynthesis' in window) {
+        try {
+            // Останавливаем предыдущее воспроизведение
+            window.speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ko-KR'; // Корейский язык
+            utterance.rate = 0.85; // Немного замедляем для учеников
+            
+            window.speechSynthesis.speak(utterance);
+        } catch (err) {
+            console.error("SpeechSynthesis error:", err);
+        }
+    } else {
+        console.warn("Web Speech API не поддерживается в этом браузере.");
     }
 }
 
