@@ -1,6 +1,6 @@
 // Инициализация Telegram Web App SDK
 const tg = window.Telegram?.WebApp;
-let apiBaseUrl = "https://chilly-geese-chew.loca.lt"; // Адрес нашего безопасного туннеля на сервере
+let apiBaseUrl = "https://intelnod-korean.loca.lt"; // Адрес нашего безопасного постоянного туннеля на сервере
 
 // Для локального тестирования на сервере или в туннеле:
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
