@@ -9,32 +9,43 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Подключаем Telegram Web Apps JS SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="translations.js"></script>
 </head>
 <body>
     <div class="app-container">
         
         <!-- Шапка -->
         <header class="app-header">
-            <div class="logo">
-                <span class="emoji">🇰🇷</span>
-                <h1>Korean Study</h1>
+            <div class="header-top">
+                <div class="logo">
+                    <span class="emoji">🇰🇷</span>
+                    <h1 data-key="title">Korean Study</h1>
+                </div>
+                <!-- Селектор выбора языка -->
+                <div class="lang-selector">
+                    <select id="lang-select">
+                        <option value="ru">RU</option>
+                        <option value="en">EN</option>
+                        <option value="uz">UZ</option>
+                    </select>
+                </div>
             </div>
-            <p class="subtitle">Интерактивный тренажер</p>
+            <p class="subtitle" data-key="subtitle">Интерактивный тренажер</p>
         </header>
 
         <!-- Вкладки (Навигация) -->
         <nav class="tab-navigation">
             <button class="tab-btn active" data-tab="hangul">
                 <span class="icon">한</span>
-                <span class="text">Хангыль</span>
+                <span class="text" data-key="tab_hangul">Хангыль</span>
             </button>
             <button class="tab-btn" data-tab="vocabulary">
                 <span class="icon">💬</span>
-                <span class="text">Слова</span>
+                <span class="text" data-key="tab_vocabulary">Слова</span>
             </button>
             <button class="tab-btn" data-tab="teacher">
                 <span class="icon">🧑‍🏫</span>
-                <span class="text">Учитель</span>
+                <span class="text" data-key="tab_teacher">Учитель</span>
             </button>
         </nav>
 
@@ -44,13 +55,13 @@
             <!-- Вкладка: Хангыль (Алфавит) -->
             <section id="hangul-tab" class="tab-content active">
                 <div class="section-info">
-                    <h2>Корейский алфавит</h2>
-                    <p>Нажмите на карточку буквы, чтобы узнать её произношение и правила чтения.</p>
+                    <h2 data-key="hangul_title">Корейский алфавит</h2>
+                    <p data-key="hangul_desc">Нажмите на карточку буквы, чтобы узнать её произношение и правила чтения.</p>
                 </div>
                 
                 <div class="category-selector">
-                    <button class="cat-btn active" data-cat="vowels">Гласные</button>
-                    <button class="cat-btn" data-cat="consonants">Согласные</button>
+                    <button class="cat-btn active" data-cat="vowels" data-key="cat_vowels">Гласные</button>
+                    <button class="cat-btn" data-cat="consonants" data-key="cat_consonants">Согласные</button>
                 </div>
 
                 <div class="hangul-grid" id="hangul-container">
@@ -61,8 +72,8 @@
             <!-- Вкладка: Слова (Словарные карточки) -->
             <section id="vocabulary-tab" class="tab-content">
                 <div class="section-info">
-                    <h2>Тренажер слов</h2>
-                    <p>Повторяйте корейские слова. Кликните по карте, чтобы перевернуть её и узнать перевод.</p>
+                    <h2 data-key="vocab_title">Тренажер слов</h2>
+                    <p data-key="vocab_desc">Повторяйте корейские слова. Кликните по карте, чтобы перевернуть её и узнать перевод.</p>
                 </div>
 
                 <div class="flashcard-container">
@@ -71,7 +82,7 @@
                             <div class="card-front">
                                 <span class="word-korean" id="front-korean">안녕</span>
                                 <span class="word-transcription" id="front-transcription">[an-nyeong]</span>
-                                <button class="audio-btn" id="speak-btn">🔊 Слушать</button>
+                                <button class="audio-btn" id="speak-btn" data-key="listen_btn">🔊 Слушать</button>
                             </div>
                             <div class="card-back">
                                 <span class="word-russian" id="back-russian">Привет / Пока</span>
@@ -82,9 +93,9 @@
                 </div>
 
                 <div class="flashcard-controls">
-                    <button class="control-btn prev-btn" id="prev-word-btn">◀ Назад</button>
+                    <button class="control-btn prev-btn" id="prev-word-btn" data-key="control_prev">◀ Назад</button>
                     <span class="card-counter" id="card-counter">1 / 10</span>
-                    <button class="control-btn next-btn" id="next-word-btn">Вперед ▶</button>
+                    <button class="control-btn next-btn" id="next-word-btn" data-key="control_next">Вперед ▶</button>
                 </div>
             </section>
 
@@ -95,31 +106,31 @@
                         <div class="avatar-glow"></div>
                         <div class="avatar-placeholder">🎓</div>
                     </div>
-                    <h2>Ваш преподаватель корейского</h2>
-                    <p class="teacher-bio">Привет! Я помогу тебе заговорить на корейском легко и без зубрежки. Мои уроки — это интерактивная практика, погружение в культуру и разборы любимых дорам и K-Pop треков.</p>
+                    <h2 data-key="teacher_title">Ваш преподаватель корейского</h2>
+                    <p class="teacher-bio" data-key="teacher_bio">Привет! Я помогу тебе заговорить на корейском легко и без зубрежки. Мои уроки — это интерактивная практика, погружение в культуру и разборы любимых дорам и K-Pop треков.</p>
                     
                     <div class="features-list">
                         <div class="feature-item">
                             <span class="feature-icon">✨</span>
-                            <span class="feature-text">Индивидуальный подход к каждому ученику</span>
+                            <span class="feature-text" data-key="feat_1">Индивидуальный подход к каждому ученику</span>
                         </div>
                         <div class="feature-item">
                             <span class="feature-icon">⚡</span>
-                            <span class="feature-text">Современные методики обучения</span>
+                            <span class="feature-text" data-key="feat_2">Современные методики обучения</span>
                         </div>
                         <div class="feature-item">
                             <span class="feature-icon">🎵</span>
-                            <span class="feature-text">Изучение языка по песням и сериалам</span>
+                            <span class="feature-text" data-key="feat_3">Изучение языка по песням и сериалам</span>
                         </div>
                     </div>
 
-                    <button class="action-btn" id="book-lesson-btn">Записаться на бесплатный пробный урок</button>
+                    <button class="action-btn" id="book-lesson-btn" data-key="book_btn">Записаться на бесплатный пробный урок</button>
                 </div>
             </section>
 
         </main>
     </div>
 
-    <script src="app.js?v=1.0.3"></script>
+    <script src="app.js?v=1.0.2"></script>
 </body>
 </html>

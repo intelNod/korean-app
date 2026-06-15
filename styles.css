@@ -47,11 +47,33 @@ body {
     padding-top: 10px;
 }
 
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
 .app-header .logo {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
+}
+
+.lang-selector select {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 4px 8px;
+    border-radius: 8px;
+    outline: none;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.lang-selector select:focus {
+    border-color: var(--accent-blue);
 }
 
 .app-header .logo .emoji {

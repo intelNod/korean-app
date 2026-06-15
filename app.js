@@ -15,6 +15,45 @@ if (tg) {
     tg.setBackgroundColor('#0b071e');
 }
 
+// Переменная текущего языка
+let currentLang = "ru";
+
+// Функция переключения языков
+function changeLanguage(lang) {
+    if (!translations[lang]) return;
+    currentLang = lang;
+    
+    // Переводим все статичные элементы по дата-атрибутам
+    document.querySelectorAll("[data-key]").forEach(el => {
+        const key = el.getAttribute("data-key");
+        if (translations[lang][key]) {
+            el.innerHTML = translations[lang][key];
+        }
+    });
+    
+    // Изменяем язык озвучки Google TTS, если это требуется для перевода слов (описание перевода пойдет на выбранном языке)
+    // Сохраняем язык в localStorage
+    localStorage.setItem("korean_lang", lang);
+}
+
+// Ждем загрузки DOM, чтобы повесить селектор
+document.addEventListener("DOMContentLoaded", () => {
+    const langSelect = document.getElementById("lang-select");
+    if (langSelect) {
+        // Подгружаем сохраненный язык
+        const savedLang = localStorage.getItem("korean_lang") || "ru";
+        langSelect.value = savedLang;
+        changeLanguage(savedLang);
+        
+        langSelect.addEventListener("change", (e) => {
+            changeLanguage(e.target.value);
+            if (tg?.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+        });
+    }
+});
+
 // Данные корейского алфавита (Хангыль)
 const hangulData = {
     vowels: [
@@ -262,13 +301,14 @@ async function sendProgress(action, data = {}) {
 
 // Запись на урок
 document.getElementById('book-lesson-btn').addEventListener('click', () => {
+    const alertMsg = translations[currentLang]?.booking_alert || "Заявка отправлена!";
     if (tg) {
         tg.sendData(JSON.stringify({
             action: 'book_lesson',
-            message: 'Пользователь хочет записаться на бесплатный пробный урок корейского.'
+            message: `Пользователь хочет записаться на урок (Выбранный язык: ${currentLang})`
         }));
     } else {
-        alert('Заявка отправлена!');
+        alert(alertMsg);
     }
 });
 
