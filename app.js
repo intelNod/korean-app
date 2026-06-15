@@ -233,12 +233,18 @@ speakBtn.addEventListener('click', () => {
 });
 
 function speakKorean(text) {
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'ko-KR';
-        utterance.rate = 0.8;
-        window.speechSynthesis.speak(utterance);
+    try {
+        // Кодируем текст для передачи в URL
+        const query = encodeURIComponent(text);
+        // Используем официальный бесплатный API озвучки от Google Translate
+        const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=ko&client=tw-ob&q=${query}`;
+        
+        const audio = new Audio(ttsUrl);
+        audio.play().catch(err => {
+            console.warn("Ошибка автовоспроизведения аудио:", err);
+        });
+    } catch (err) {
+        console.error("Не удалось воспроизвести звук:", err);
     }
 }
 
