@@ -47,8 +47,13 @@ const hangulData = {
     ]
 };
 
-// Динамический массив слов
-let vocabularyData = [];
+// Динамический массив слов (содержит начальный резервный список)
+let vocabularyData = [
+    { id: 1, korean: '안녕하세요', transcription: 'an-nyeong-ha-se-yo', russian: 'Здравствуйте', example: 'Пример: 안녕하세요! 만나서 반га워요. (Здравствуйте! Рад встрече.)' },
+    { id: 2, korean: '감사합니다', transcription: 'gam-sa-ham-ni-da', russian: 'Спасибо', example: 'Пример: 도와주셔서 감사합니다. (Спасибо, что помогли.)' },
+    { id: 3, korean: '사랑해요', transcription: 'sa-rang-hae-yo', russian: 'Я люблю тебя', example: 'Пример: 한국을 사랑해요. (Я люблю Корею.)' },
+    { id: 4, korean: '맛있어요', transcription: 'ma-si-sseo-yo', russian: 'Вкусно', example: 'Пример: 이 비빔밥 정말 맛있어요! (Этот пибимпап очень вкусный!)' }
+];
 let currentWordIndex = 0;
 
 // Функция для безопасной отправки запросов на сервер бота
@@ -263,4 +268,9 @@ document.getElementById('book-lesson-btn').addEventListener('click', () => {
 
 // Инициализация при старте
 renderHangul('vowels');
-loadVocabulary();
+updateWord();
+
+// Асинхронно загружаем слова из базы данных, не блокируя UI
+setTimeout(() => {
+    loadVocabulary();
+}, 50);
