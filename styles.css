@@ -1,0 +1,511 @@
+/* Сброс базовых стилей и настройка шрифтов */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    /* Цветовая палитра: глубокий фиолетовый, неоновый синий и розовый */
+    --bg-primary: #0b071e;
+    --bg-secondary: #160f38;
+    --text-primary: #ffffff;
+    --text-secondary: #b0a8d6;
+    --accent-blue: #00f2fe;
+    --accent-pink: #f35588;
+    --accent-purple: #7000ff;
+    --card-bg: rgba(30, 21, 74, 0.6);
+    --border-color: rgba(112, 0, 255, 0.3);
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Outfit', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* Контейнер приложения */
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    padding-bottom: 30px;
+}
+
+/* Шапка приложения */
+.app-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+.app-header .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.app-header .logo .emoji {
+    font-size: 28px;
+}
+
+.app-header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.app-header .subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+/* Навигационные вкладки */
+.tab-navigation {
+    display: flex;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.tab-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-secondary);
+    padding: 8px 0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    gap: 4px;
+}
+
+.tab-btn .icon {
+    font-size: 18px;
+}
+
+.tab-btn .text {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--accent-purple), #4a00b4);
+    color: var(--text-primary);
+    box-shadow: 0 4px 15px rgba(112, 0, 255, 0.4);
+}
+
+/* Контент вкладок */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-info {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.section-info h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+.section-info p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Селектор категорий алфавита */
+.category-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.cat-btn {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.cat-btn.active {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    background: rgba(0, 242, 254, 0.1);
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.1);
+}
+
+/* Таблица алфавита Хангыль */
+.hangul-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.hangul-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hangul-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+
+.hangul-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(112, 0, 255, 0.6);
+    box-shadow: 0 6px 20px rgba(112, 0, 255, 0.2);
+}
+
+.hangul-card.active {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+}
+
+.hangul-card.active::before {
+    opacity: 1;
+}
+
+.hangul-char {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text-primary);
+}
+
+.hangul-sound {
+    font-size: 14px;
+    color: var(--accent-blue);
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.hangul-rules {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+/* Стили для флеш-карт (Вкладка: Слова) */
+.flashcard-container {
+    perspective: 1000px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 320px;
+    height: 240px;
+}
+
+.flashcard {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-front {
+    background: linear-gradient(145deg, #1b1343, #0f0a29);
+    color: var(--text-primary);
+    border-bottom: 4px solid var(--accent-purple);
+}
+
+.card-back {
+    background: linear-gradient(145deg, #0f0a29, #1b1343);
+    color: var(--text-primary);
+    transform: rotateY(180deg);
+    border-bottom: 4px solid var(--accent-pink);
+}
+
+.word-korean {
+    font-size: 42px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(112, 0, 255, 0.4);
+}
+
+.word-transcription {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.audio-btn {
+    background: rgba(112, 0, 255, 0.2);
+    border: 1px solid var(--accent-purple);
+    color: var(--text-primary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all var(--transition-speed);
+}
+
+.audio-btn:hover {
+    background: var(--accent-purple);
+    box-shadow: 0 0 10px rgba(112, 0, 255, 0.5);
+}
+
+.word-russian {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--accent-pink);
+    margin-bottom: 12px;
+}
+
+.word-example {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Управление флеш-картами */
+.flashcard-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.control-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.control-btn:hover {
+    border-color: var(--accent-purple);
+    background: rgba(112, 0, 255, 0.1);
+}
+
+.card-counter {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Вкладка: Учитель */
+.teacher-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.avatar-container {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 16px auto;
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    position: relative;
+    z-index: 2;
+}
+
+.avatar-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    border-radius: 50%;
+    filter: blur(12px);
+    opacity: 0.6;
+    z-index: 1;
+    animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.teacher-card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.teacher-bio {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.features-list {
+    text-align: left;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feature-icon {
+    font-size: 18px;
+}
+
+.feature-text {
+    font-size: 13px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Главная кнопка действия */
+.action-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: var(--text-primary);
+    border: none;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
